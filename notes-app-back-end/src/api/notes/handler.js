@@ -1,19 +1,25 @@
 class NotesHandler{
     constructor(service){
         this._service = service;
+        
+        this.postNoteHandler = this.postNoteHandler.bind(this);
+        this.getNotesHandler = this.getNotesHandler.bind(this);
+        this.getNoteByIdHandler = this.getNoteByIdHandler.bind(this);
+        this.putNoteByIdHandler = this.putNoteByIdHandler.bind(this)
+        this.deleteNoteByIdHandler = this.deleteNoteByIdHandler.bind(this)
     }
 
     postNoteHandler(request, h){
         const { title = 'untitled', body, tags } = request.payload;
 
-        const NoteId = this._service.addNote({title, body, tags});
-
+        const noteId = this._service.addNote({title, body, tags});
+        console.log("post");
         try {
             const response = h.response({
                 status: 'success',
                 message: 'Catatan berhasil ditambahkan',
                 data: {
-                    NoteId,
+                    noteId,
                 },
             });
             response.code(201);
@@ -30,7 +36,8 @@ class NotesHandler{
     }
 
     getNotesHandler(){
-        const notes = this._service.getNotesHandler();
+        const notes = this._service.getNotes();
+        console.log("getnote");
         return{
             status: 'success',
             data: {
@@ -40,10 +47,11 @@ class NotesHandler{
     }
 
     getNoteByIdHandler(request, h){
-        const { id } = request.params;
-        const note = this._service.getNoteByIdHandler(id);
-
         try {
+            const { id } = request.params;
+            const note = this._service.getNoteById(id);
+            console.log("getnotebyid");
+            console.log(id);
             return {
                 status: 'success',
                 data: {
@@ -64,7 +72,7 @@ class NotesHandler{
     putNoteByIdHandler(request, h){
         const { id } = request.params;
 
-        this._service.putNoteByIdHandler(id, request.payload);
+        this._service.editNoteById(id, request.payload);
 
         try {
             return{
@@ -84,7 +92,7 @@ class NotesHandler{
     deleteNoteByIdHandler(request, h){
         const { id } = request.params;
 
-        this._service.deleteNoteByIdHandler(id);
+        this._service.deleteNoteById(id);
 
         try {
             return{
