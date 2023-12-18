@@ -13,7 +13,6 @@ class NotesHandler{
         const { title = 'untitled', body, tags } = request.payload;
 
         const noteId = this._service.addNote({title, body, tags});
-        console.log("post");
         try {
             const response = h.response({
                 status: 'success',
@@ -37,7 +36,6 @@ class NotesHandler{
 
     getNotesHandler(){
         const notes = this._service.getNotes();
-        console.log("getnote");
         return{
             status: 'success',
             data: {
@@ -50,8 +48,6 @@ class NotesHandler{
         try {
             const { id } = request.params;
             const note = this._service.getNoteById(id);
-            console.log("getnotebyid");
-            console.log(id);
             return {
                 status: 'success',
                 data: {
