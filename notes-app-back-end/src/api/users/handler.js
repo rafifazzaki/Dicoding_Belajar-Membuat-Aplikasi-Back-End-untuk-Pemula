@@ -1,3 +1,6 @@
+const ClientError = require('../../exceptions/ClientError');
+
+
 class UsersHandler{
     constructor(service, validator){
         this._service = service;
@@ -32,6 +35,38 @@ class UsersHandler{
             data: {
                 user
             }
+        }
+    }
+
+    async getUsersByUsernameHandler(request, h){
+        try {
+            const { username = '' } = request.query
+            const users = await this._service.getUsersByUsername(username)
+
+            return {
+                status: 'success',
+                data: {
+                    users
+                }
+            }
+        } catch (error) {
+            if(error instanceof ClientError){
+                const response = h.response({
+                    status: 'fail',
+                    message: error.message
+                })
+                response.code(error.statusCode)
+                return response
+            }
+
+            //server ERROR!
+            const response = h.response({
+                status: 'error',
+                message: 'Maaf, terjadi kegagalan pada server kami.'
+            })
+            response.code(500)
+            console.error(error)
+            return response
         }
     }
 }
