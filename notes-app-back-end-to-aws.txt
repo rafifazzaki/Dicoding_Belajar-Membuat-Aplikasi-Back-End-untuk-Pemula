@@ -5,3 +5,11 @@ rm Dicoding_Belajar-Membuat-Aplikasi-Back-End-untuk-Pemula/notes-app-back-end/no
 rm Dicoding_Belajar-Membuat-Aplikasi-Back-End-untuk-Pemula/notes-app-back-end/IAMrafifazzaki_credentials.csv
 
 rm -r Dicoding_Belajar-Membuat-Aplikasi-Back-End-untuk-Pemula/notes-app-back-end/node_modules
+
+(go to directory)
+
+npm install
+
+touch env
+
+(copy from prod env using vim env)
