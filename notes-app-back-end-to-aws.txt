@@ -12,7 +12,7 @@ npm install
 
 touch env
 
-(copy from prod env using vim env)
+(copy from prod env using vim env then :wq)
 
 install pm2:
 https://www.dicoding.com/academies/261/tutorials/14862?hl=pm2
