@@ -54,7 +54,8 @@ const init = async () => {
             plugin: Jwt
         }
     ])
-
+    console.log(process.env.NODE_ENV);
+    console.log(process.env.ACCESS_TOKEN_KEY);
     server.auth.strategy('notesapp_jwt', 'jwt', {
         keys: process.env.ACCESS_TOKEN_KEY,
         verify: {
