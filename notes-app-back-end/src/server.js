@@ -1,3 +1,6 @@
+
+// require('dotenv').config
+// change the path when in production:
 require('dotenv').config({path: '/home/ubuntu/Dicoding_Belajar-Membuat-Aplikasi-Back-End-untuk-Pemula/notes-app-back-end/env'});
 
 const Hapi = require('@hapi/hapi');
