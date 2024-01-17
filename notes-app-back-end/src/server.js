@@ -84,7 +84,7 @@ const init = async () => {
             },
         })
     })
-    console.log(process.env.PGHOST);
+    
     await server.register([
         {
             plugin: notes,
