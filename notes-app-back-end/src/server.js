@@ -36,6 +36,9 @@ const uploads = require('./api/uploads')
 const StorageService = require('./services/S3/StorageService')
 const UploadsValidator = require('./validator/uploads')
 
+// cache
+const CacheService = require('./services/redis/cacheService')
+
 const ClientError = require('./exceptions/ClientError');
 const Jwt = require('@hapi/jwt');
 const path = require('path')
@@ -43,11 +46,11 @@ const Inert = require('@hapi/inert')
 
 
 const init = async () => {
-    // const notesService = new NotesService();
+    const cacheService = new CacheService()
     const usersService = new UsersService();
     const authenticationsService = new AuthenticationsService();
-    const collaborationsService = new CollaborationsService()
-    const notesService = new NotesService(collaborationsService)
+    const collaborationsService = new CollaborationsService(cacheService)
+    const notesService = new NotesService(collaborationsService, cacheService)
     // const storageService = new StorageService(path.resolve(__dirname, 'api/uploads/file/images')) //local storageService
     const storageService = new StorageService()
     
